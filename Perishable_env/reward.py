@@ -26,10 +26,11 @@ def compute_reward(config, sales, price_levels, inventory, expiry, expired_units
 
     reward = revenue - wastage_cost - holding_cost - penalty + bundle_bonus
 
-    info = {
-    "revenue": revenue,
-    "waste": waste,
-    "demand": demand
-}
-
-return reward, info
+    return reward, config["reward_info"](
+        revenue=revenue,
+        wastage_cost=wastage_cost,
+        holding_cost=holding_cost,
+        discount_penalty=penalty,
+        bundle_bonus=bundle_bonus,
+        expired_units=expired_units,
+    )
